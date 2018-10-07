@@ -30,6 +30,8 @@ Bye using the [_JSON for Modern C++_](https://github.com/nlohmann/json).
 Which is -btw- not designed for high speed JSON mapping, see [parsing time benchmarks](https://github.com/miloyip/nativejson-benchmark#parsing-time).
 The aim of the playground is just to get an idea about performance differences.
 
+Snapshot of the projects output:
+
 ```
 starting deserializing of
 {  "query": ["foo", "bar"],  "at": [3.141, 3.281]}
@@ -47,7 +49,7 @@ difference:
   => 0.000019 seconds per deserialized object
 ```
 
-Ergo: the array-based app approach is **~19 microseconds** faster than the typesafe object-based approach.
+Ergo: the array-based approach is **~19 microseconds** faster than the typesafe object-based approach.
 
 ## build
 
