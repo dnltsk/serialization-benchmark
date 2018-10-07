@@ -26,7 +26,7 @@ and object-based, e.g.
 }
 ```
 
-Bye using the [_JSON for Modern C++_](https://github.com/nlohmann/json).
+bye using the [_JSON for Modern C++_](https://github.com/nlohmann/json) library.
 Which is -btw- not designed for high speed JSON mapping, see [parsing time benchmarks](https://github.com/miloyip/nativejson-benchmark#parsing-time).
 The aim of the playground is just to get an idea about performance differences.
 
