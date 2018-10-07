@@ -30,7 +30,7 @@ Bye using the [_JSON for Modern C++_](https://github.com/nlohmann/json).
 Which is -btw- not designed for high speed JSON mapping, see [parsing time benchmarks](https://github.com/miloyip/nativejson-benchmark#parsing-time).
 The aim of the playground is just to get an idea about performance differences.
 
-Snapshot of the projects output:
+Snapshot of the project's output:
 
 ```
 starting deserializing of
