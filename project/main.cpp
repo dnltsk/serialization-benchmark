@@ -3,18 +3,18 @@
 #include <chrono>
 #include <iomanip>
 #include "nlohmann/json.hpp"
-#include "model_array.hpp"
-#include "model_object.hpp"
+#include "model_flat.hpp"
+#include "model_struct.hpp"
 
 using json = nlohmann::json;
 using namespace std;
 using namespace std::chrono;
 
-std::string json_array = "{"
+string json_flat = "{"
   "  \"query\": [\"foo\", \"bar\"],"
   "  \"at\": [3.141, 3.281]"
   "}";
-std::string json_object = "{"
+string json_struct = "{"
 "  \"query\": {"
 "    \"categoryId\": \"foo\","
 "    \"value\": \"bar\""
@@ -27,56 +27,50 @@ std::string json_object = "{"
 
 int main()
 {
-  std::cout<<std::fixed;
-  std::cout<<std::setprecision(6);
+  cout<<fixed;
+  cout<<setprecision(6);
 
-  int repeats = 100000;
+  int num_samples = 100000;
   high_resolution_clock::time_point start;
   high_resolution_clock::time_point end;
 
   //
-  // ARRAY
+  // FLAT
   //
-  cout << "starting deserializing of " << endl;
-  cout << json_array << endl;
+  cout << "starting deserializing " << num_samples << " times of " << endl;
+  cout << json_flat << endl;
   cout << ".." << endl;
   start = high_resolution_clock::now();
-  for(int i=0; i<repeats; i++){
-    json model_array_auto = json::parse(json_array);
-    model_array::the_model model_array = model_array_auto;
-    //cout << model_array_auto << endl;
-    //assert(model_array_auto == model_array);
+  for(int i=0; i<num_samples; i++){
+    model_flat::the_model model_flat = json::parse(json_flat);
   }
   end = high_resolution_clock::now();
-  duration<double> array_duration = ( end - start );
-  cout << "ARRAY:  duration to deserialize " << repeats << " objects: " << array_duration.count() << " seconds" << endl;
+  duration<double> flat_duration = ( end - start );
+  cout << "FLAT: duration to deserialize " << num_samples << " flat objects: " << flat_duration.count() << " seconds" << endl;
   cout << endl;
 
   //
-  // OBJECT
+  // STRUCT
   //
-  cout << "starting deserializing of " << endl;
-  cout << json_object << endl;
+  cout << "starting deserializing " << num_samples << " times of " << endl;
+  cout << json_struct << endl;
   cout << ".." << endl;
   start = high_resolution_clock::now();
-  for(int i=0; i<repeats; i++){
-    json model_object_auto = json::parse(json_object);
-    model_object::the_model model_object = model_object_auto;
-    //cout << model_object_auto << endl;
-    //assert(model_object_auto == model_object);
+  for(int i=0; i<num_samples; i++){
+    model_struct::the_model model_struct = json::parse(json_struct);
   }
   end = high_resolution_clock::now();
-  duration<double> object_duration = ( end - start );
-  cout << "OBJECT: duration to deserialize " << repeats << " objects: " << object_duration.count() << " seconds" << endl;
+  duration<double> struct_duration = ( end - start );
+  cout << "STRUCT: duration to deserialize " << num_samples << " structured objects: " << struct_duration.count() << " seconds" << endl;
 
   //
   // RESULTS
   //
   cout << endl;
-  cout << "difference: " << endl;
-  cout << "  " << abs((object_duration.count() - array_duration.count())) << " seconds" << endl;
-  cout << "  " << 100.0 - (100.0 / object_duration.count() * array_duration.count()) << " \% slower" << endl;
-  cout << "  => " << (object_duration.count() * array_duration.count()) / repeats << " seconds per deserialized object" << endl;
+  cout << "RESULTS: " << endl;
+  cout << "  => deserialization of " << num_samples << " structured samples is " << abs((struct_duration.count() - flat_duration.count())) << " seconds slower than with flat samples" << endl;
+  cout << "  => deserialization of structured samples are " << 100.0 - (100.0 / struct_duration.count() * flat_duration.count()) << " \% slower than the flat samples" << endl;
+  cout << "  => deserialization of one structured sample is " << (struct_duration.count() * flat_duration.count()) / num_samples << " seconds slower than a flat sample" << endl;
 
   return 0;
 }

@@ -2,7 +2,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-namespace model_array {
+namespace model_flat {
   struct the_model {
     vector<double> at;
     vector<string> query;
@@ -17,4 +17,4 @@ namespace model_array {
     j.at("query").get_to(m.query);
   }
 
-}//ns model_array
+}

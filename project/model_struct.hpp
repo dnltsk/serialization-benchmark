@@ -2,7 +2,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-namespace model_object {
+namespace model_struct {
 
   struct query_model{
     string categoryId;
@@ -46,4 +46,4 @@ namespace model_object {
     j.at("query").get_to(m.query);
   }
 
-}//ns model_object
+}
