@@ -1,9 +1,10 @@
 # serialization-benchmark
 (de)serialization performance comparison
 
-Playground project to check the performance difference of (de)serializing.
+Playground project to check the performance difference of (de)serializing between
 
-Array-based objects, e.g.
+a) flat data model, e.g.
+
 ```
 {  
   "query": ["foo", "bar"],  
@@ -11,7 +12,7 @@ Array-based objects, e.g.
 }
 ```
 
-and object-based, e.g.
+b) structured data model, e.g.
 
 ```
 {  
@@ -27,7 +28,7 @@ and object-based, e.g.
 ```
 
 bye using the [_JSON for Modern C++_](https://github.com/nlohmann/json) library.
-Which is -btw- not designed for high speed JSON mapping, see [parsing time benchmarks](https://github.com/miloyip/nativejson-benchmark#parsing-time), but
+Which is not designed for high speed JSON mapping, see [parsing time benchmarks](https://github.com/miloyip/nativejson-benchmark#parsing-time), but
 the aim of that playground project is just to get an idea about performance differences.
 
 Snapshot of the project's output:
